@@ -135,9 +135,9 @@ body {
   --muted-foreground: oklch(0.6 0 0);
   --accent: oklch(0.12 0 0);
   --accent-foreground: oklch(0.985 0 0);
-  --destructive: oklch(0.3 0.1 25)
-    /* Subtle red */
-    --border: oklch(0.2 0 0);
+  --destructive: oklch(0.3 0.1 25);
+  /* Subtle red */
+  --border: oklch(0.2 0 0);
   /* Visible but subtle borders */
   --input: oklch(0.2 0 0);
   --ring: oklch(0.8 0 0);
