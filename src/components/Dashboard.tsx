@@ -6,26 +6,31 @@ import { JobBoard } from "./JobBoard";
 import { CalendarView } from "./CalendarView";
 import { NetworkView } from "./NetworkView";
 import { ResourcesView } from "./ResourcesView";
+import { ThemeToggle } from "./ThemeToggle";
 
 export function Dashboard() {
     return (
-        <div className="flex-1 overflow-hidden flex flex-col bg-black">
+        <div className="flex-1 overflow-hidden flex flex-col bg-background">
             <Tabs defaultValue="board" className="flex-1 flex flex-col overflow-hidden">
-                <div className="px-6 border-b border-zinc-900 bg-black z-10 pt-2">
-                    <TabsList className="bg-transparent h-10 p-0 gap-6 w-full justify-start">
+                <div className="flex items-center justify-between px-6 border-b border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-950 z-10 h-14 shrink-0 shadow-sm">
+                    <TabsList className="bg-transparent p-0 gap-2 w-auto justify-start">
                         {['board', 'calendar', 'network', 'resources'].map((tab) => (
                             <TabsTrigger
                                 key={tab}
                                 value={tab}
-                                className="capitalize data-[state=active]:bg-transparent data-[state=active]:shadow-none data-[state=active]:text-zinc-100 rounded-none h-full px-0 pb-2 text-zinc-500 font-medium transition-colors hover:text-zinc-300 border-b-2 border-transparent data-[state=active]:border-zinc-100"
+                                className="capitalize rounded-full px-4 py-1 text-sm font-medium text-zinc-500 hover:text-zinc-900 dark:hover:text-zinc-200 transition-colors data-[state=active]:bg-zinc-100 dark:data-[state=active]:bg-zinc-800 data-[state=active]:text-zinc-900 dark:data-[state=active]:text-zinc-100"
                             >
                                 {tab}
                             </TabsTrigger>
                         ))}
                     </TabsList>
+                    <div className="flex items-center gap-2">
+                        <div className="h-6 w-px bg-zinc-200 dark:bg-zinc-800 mx-2" />
+                        <ThemeToggle />
+                    </div>
                 </div>
 
-                <div className="flex-1 overflow-hidden bg-black relative">
+                <div className="flex-1 overflow-hidden bg-zinc-50 dark:bg-black relative">
                     <TabsContent value="board" className="h-full m-0 p-6 data-[state=inactive]:hidden animate-in fade-in duration-300">
                         <JobBoard />
                     </TabsContent>

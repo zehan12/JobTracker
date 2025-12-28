@@ -53,10 +53,10 @@ export function NetworkView() {
         <div className="p-4 md:p-6 max-w-7xl mx-auto">
             <div className="flex justify-between items-center mb-6">
                 <div className="flex items-center gap-4 flex-1">
-                    <h2 className="text-2xl font-bold text-zinc-100">Network</h2>
+                    <h2 className="text-2xl font-bold text-zinc-900 dark:text-zinc-100">Network</h2>
                     <Input
                         placeholder="Search contacts..."
-                        className="max-w-xs bg-zinc-900 border-zinc-700 text-zinc-100"
+                        className="max-w-xs bg-white dark:bg-zinc-900 border-zinc-200 dark:border-zinc-700 text-zinc-900 dark:text-zinc-100"
                         value={searchTerm}
                         onChange={(e) => setSearchTerm(e.target.value)}
                     />
@@ -66,55 +66,55 @@ export function NetworkView() {
                 </Button>
             </div>
 
-            <div className="bg-zinc-900/50 border border-zinc-800 rounded-lg overflow-hidden">
+            <div className="bg-white dark:bg-zinc-900/50 border border-zinc-200 dark:border-zinc-800 rounded-lg overflow-hidden shadow-sm">
                 <Table>
-                    <TableHeader className="bg-zinc-900">
-                        <TableRow className="border-zinc-800 hover:bg-zinc-900">
-                            <TableHead className="text-zinc-400 w-[200px]">Name</TableHead>
-                            <TableHead className="text-zinc-400">Role & Company</TableHead>
-                            <TableHead className="text-zinc-400">Status</TableHead>
-                            <TableHead className="text-zinc-400">Links</TableHead>
-                            <TableHead className="text-zinc-400 text-right">Actions</TableHead>
+                    <TableHeader className="bg-zinc-50 dark:bg-zinc-900">
+                        <TableRow className="border-zinc-200 dark:border-zinc-800 hover:bg-zinc-100 dark:hover:bg-zinc-900">
+                            <TableHead className="text-zinc-600 dark:text-zinc-400 w-[200px]">Name</TableHead>
+                            <TableHead className="text-zinc-600 dark:text-zinc-400">Role & Company</TableHead>
+                            <TableHead className="text-zinc-600 dark:text-zinc-400">Status</TableHead>
+                            <TableHead className="text-zinc-600 dark:text-zinc-400">Links</TableHead>
+                            <TableHead className="text-zinc-600 dark:text-zinc-400 text-right">Actions</TableHead>
                         </TableRow>
                     </TableHeader>
                     <TableBody>
                         {filteredContacts.length === 0 ? (
-                            <TableRow className="border-zinc-800 hover:bg-zinc-800/50">
+                            <TableRow className="border-zinc-200 dark:border-zinc-800 hover:bg-zinc-50 dark:hover:bg-zinc-800/50">
                                 <TableCell colSpan={5} className="text-center py-10 text-zinc-500">
                                     No contacts found. Start building your network!
                                 </TableCell>
                             </TableRow>
                         ) : (
                             filteredContacts.map((contact) => (
-                                <TableRow key={contact.id} className="border-zinc-800 hover:bg-zinc-800/50 transition-colors">
-                                    <TableCell className="font-medium text-zinc-200">{contact.name}</TableCell>
-                                    <TableCell className="text-zinc-300">
+                                <TableRow key={contact.id} className="border-zinc-200 dark:border-zinc-800 hover:bg-zinc-50 dark:hover:bg-zinc-800/50 transition-colors">
+                                    <TableCell className="font-medium text-zinc-900 dark:text-zinc-200">{contact.name}</TableCell>
+                                    <TableCell className="text-zinc-700 dark:text-zinc-300">
                                         <div className="flex flex-col">
                                             <span>{contact.role}</span>
                                             <span className="text-xs text-zinc-500">{contact.company}</span>
                                         </div>
                                     </TableCell>
                                     <TableCell>
-                                        <Badge variant="outline" className={`border ${statusColors[contact.status]}`}>
+                                        <Badge variant="outline" className={`border ${statusColors[contact.status]} bg-opacity-10 dark:bg-opacity-20`}>
                                             {contact.status}
                                         </Badge>
                                     </TableCell>
                                     <TableCell>
                                         <div className="flex gap-2">
                                             {contact.email && (
-                                                <a href={`mailto:${contact.email}`} className="text-blue-400 hover:underline text-xs" target="_blank">Email</a>
+                                                <a href={`mailto:${contact.email}`} className="text-blue-600 dark:text-blue-400 hover:underline text-xs" target="_blank">Email</a>
                                             )}
                                             {contact.linkedin && (
-                                                <a href={contact.linkedin} className="text-blue-400 hover:underline text-xs" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+                                                <a href={contact.linkedin} className="text-blue-600 dark:text-blue-400 hover:underline text-xs" target="_blank" rel="noopener noreferrer">LinkedIn</a>
                                             )}
                                         </div>
                                     </TableCell>
                                     <TableCell className="text-right">
                                         <div className="flex justify-end gap-2">
-                                            <Button variant="ghost" size="icon" onClick={() => handleEditClick(contact)} className="h-8 w-8 text-zinc-400 hover:text-zinc-100">
+                                            <Button variant="ghost" size="icon" onClick={() => handleEditClick(contact)} className="h-8 w-8 text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100">
                                                 <EditIcon className="w-4 h-4" />
                                             </Button>
-                                            <Button variant="ghost" size="icon" onClick={() => deleteContact(contact.id)} className="h-8 w-8 text-zinc-400 hover:text-red-400">
+                                            <Button variant="ghost" size="icon" onClick={() => deleteContact(contact.id)} className="h-8 w-8 text-zinc-400 hover:text-red-500 dark:hover:text-red-400">
                                                 <TrashIcon className="w-4 h-4" />
                                             </Button>
                                         </div>
