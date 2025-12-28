@@ -3,6 +3,7 @@ import { JobCard } from "./JobCard";
 import { PlusIcon } from "./ui/Icons";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { useDroppable } from '@dnd-kit/core';
 
 interface JobColumnProps {
     title: string;
@@ -14,6 +15,10 @@ interface JobColumnProps {
 }
 
 export function JobColumn({ title, status, jobs, onAdd, onEdit, onDelete }: JobColumnProps) {
+    const { setNodeRef } = useDroppable({
+        id: status,
+    });
+
     const statusColorMap = {
         Applied: 'bg-blue-500',
         'Follow Up': 'bg-yellow-500',
@@ -23,14 +28,16 @@ export function JobColumn({ title, status, jobs, onAdd, onEdit, onDelete }: JobC
     };
 
     return (
-        <div className="flex flex-col h-full min-w-[320px] w-full max-w-sm bg-zinc-900/40 border border-zinc-800/50 rounded-xl p-4">
-            <div className="flex justify-between items-center mb-4 px-1">
-                <h2 className="text-zinc-100 font-semibold flex items-center gap-2">
-                    <span className={`w-2 h-2 rounded-full ${statusColorMap[status]}`}></span>
+        <div
+            ref={setNodeRef}
+            className="flex flex-col h-full min-w-[320px] w-full max-w-sm bg-zinc-100/50 dark:bg-zinc-900/30 border-none rounded-xl p-3 transition-colors data-[over=true]:bg-zinc-200/50 dark:data-[over=true]:bg-zinc-800/50"
+        >
+            <div className="flex justify-between items-center mb-3 px-1">
+                <h2 className="text-xs font-bold uppercase tracking-wider text-zinc-500 flex items-center gap-2">
                     {title}
-                    <Badge variant="secondary" className="bg-zinc-800 text-zinc-400 hover:bg-zinc-800 ml-1">
+                    <span className="text-[10px] px-1.5 py-0.5 rounded-full bg-zinc-200 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-400 font-medium ml-1">
                         {jobs.length}
-                    </Badge>
+                    </span>
                 </h2>
                 <Button
                     variant="ghost"
@@ -44,14 +51,13 @@ export function JobColumn({ title, status, jobs, onAdd, onEdit, onDelete }: JobC
 
             <div className="flex-1 overflow-y-auto space-y-3 pr-1 no-scrollbar">
                 {jobs.length === 0 ? (
-                    <div className="flex flex-col items-center justify-center h-32 border-2 border-dashed border-zinc-800/50 rounded-xl">
-                        <p className="text-zinc-600 text-sm mb-2">No jobs yet</p>
+                    <div className="flex flex-col items-center justify-center h-24 rounded-lg opacity-0 hover:opacity-100 transition-opacity">
                         <Button
-                            variant="link"
+                            variant="ghost"
                             onClick={() => onAdd(status)}
-                            className="text-blue-500 h-auto p-0 text-sm"
+                            className="text-zinc-400 hover:text-zinc-600 dark:hover:text-zinc-300 text-sm"
                         >
-                            Add one
+                            + Add Job
                         </Button>
                     </div>
                 ) : (
