@@ -12,7 +12,11 @@ export interface Job {
     company: string;
     role: string;
     location?: string; // e.g., "Remote", "NY"
+    platform?: string; // e.g., "LinkedIn", "Indeed"
+    logoUrl?: string; // URL to company/platform logo
     salary?: string; // e.g., "$120k"
+    experience?: string; // e.g. "Senior", "3+ years"
+    jobType?: string; // e.g. "Remote", "Full-time"
     status: JobStatus;
     appliedDate: string; // ISO date string
     jobUrl?: string;
