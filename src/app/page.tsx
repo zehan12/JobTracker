@@ -11,7 +11,6 @@ export default function Home() {
           </h1>
         </div>
       </header>
-
       <Dashboard />
     </main>
   );
