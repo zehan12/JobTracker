@@ -1,6 +1,8 @@
 "use client";
 
+import { useLiveQuery } from "dexie-react-hooks";
 import { useEffect, useState } from "react";
+import { db } from "../lib/db";
 import type {
   CalendarEvent,
   Contact,
@@ -16,170 +18,142 @@ const LINK_STORAGE_KEY = "job-link-tracker-v1";
 const EVENT_STORAGE_KEY = "job-calendar-event-tracker-v1";
 
 export function useTracker() {
-  const [jobs, setJobs] = useState<Job[]>([]);
-  const [contacts, setContacts] = useState<Contact[]>([]);
-  const [templates, setTemplates] = useState<Template[]>([]);
-  const [socialLinks, setSocialLinks] = useState<SocialLink[]>([]);
-  const [calendarEvents, setCalendarEvents] = useState<CalendarEvent[]>([]);
-
   const [isLoaded, setIsLoaded] = useState(false);
 
+  // Migrate old localStorage data to Dexie if it exists
   useEffect(() => {
-    const savedJobs = localStorage.getItem(JOB_STORAGE_KEY);
-    const savedContacts = localStorage.getItem(CONTACT_STORAGE_KEY);
-    const savedTemplates = localStorage.getItem(TEMPLATE_STORAGE_KEY);
-    const savedLinks = localStorage.getItem(LINK_STORAGE_KEY);
-    const savedEvents = localStorage.getItem(EVENT_STORAGE_KEY);
+    const migrateData = async () => {
+      try {
+        const savedJobs = localStorage.getItem(JOB_STORAGE_KEY);
+        if (savedJobs) {
+          const parsed = JSON.parse(savedJobs);
+          if (parsed.length) await db.jobs.bulkPut(parsed);
+          localStorage.removeItem(JOB_STORAGE_KEY);
+        }
 
-    if (savedJobs) {
-      try {
-        setJobs(JSON.parse(savedJobs));
-      } catch (e) {
-        console.error(e);
-      }
-    }
-    if (savedContacts) {
-      try {
-        setContacts(JSON.parse(savedContacts));
-      } catch (e) {
-        console.error(e);
-      }
-    }
-    if (savedTemplates) {
-      try {
-        setTemplates(JSON.parse(savedTemplates));
-      } catch (e) {
-        console.error(e);
-      }
-    }
-    if (savedLinks) {
-      try {
-        setSocialLinks(JSON.parse(savedLinks));
-      } catch (e) {
-        console.error(e);
-      }
-    }
-    if (savedEvents) {
-      try {
-        setCalendarEvents(JSON.parse(savedEvents));
-      } catch (e) {
-        console.error(e);
-      }
-    }
+        const savedContacts = localStorage.getItem(CONTACT_STORAGE_KEY);
+        if (savedContacts) {
+          const parsed = JSON.parse(savedContacts);
+          if (parsed.length) await db.contacts.bulkPut(parsed);
+          localStorage.removeItem(CONTACT_STORAGE_KEY);
+        }
 
-    setIsLoaded(true);
+        const savedTemplates = localStorage.getItem(TEMPLATE_STORAGE_KEY);
+        if (savedTemplates) {
+          const parsed = JSON.parse(savedTemplates);
+          if (parsed.length) await db.templates.bulkPut(parsed);
+          localStorage.removeItem(TEMPLATE_STORAGE_KEY);
+        }
+
+        const savedLinks = localStorage.getItem(LINK_STORAGE_KEY);
+        if (savedLinks) {
+          const parsed = JSON.parse(savedLinks);
+          if (parsed.length) await db.socialLinks.bulkPut(parsed);
+          localStorage.removeItem(LINK_STORAGE_KEY);
+        }
+
+        const savedEvents = localStorage.getItem(EVENT_STORAGE_KEY);
+        if (savedEvents) {
+          const parsed = JSON.parse(savedEvents);
+          if (parsed.length) await db.calendarEvents.bulkPut(parsed);
+          localStorage.removeItem(EVENT_STORAGE_KEY);
+        }
+      } catch (e) {
+        console.error("Migration failed:", e);
+      } finally {
+        setIsLoaded(true);
+      }
+    };
+
+    migrateData();
   }, []);
 
-  useEffect(() => {
-    if (isLoaded) {
-      localStorage.setItem(JOB_STORAGE_KEY, JSON.stringify(jobs));
-      localStorage.setItem(CONTACT_STORAGE_KEY, JSON.stringify(contacts));
-      localStorage.setItem(TEMPLATE_STORAGE_KEY, JSON.stringify(templates));
-      localStorage.setItem(LINK_STORAGE_KEY, JSON.stringify(socialLinks));
-      localStorage.setItem(EVENT_STORAGE_KEY, JSON.stringify(calendarEvents));
-    }
-  }, [jobs, contacts, templates, socialLinks, calendarEvents, isLoaded]);
+  // Reactively query the database
+  // Using reverse().sortBy('createdAt') for jobs if you want newest first
+  const jobs = useLiveQuery(() => db.jobs.reverse().sortBy('createdAt')) || [];
+  const contacts = useLiveQuery(() => db.contacts.reverse().sortBy('createdAt')) || [];
+  const templates = useLiveQuery(() => db.templates.reverse().sortBy('updatedAt')) || [];
+  const socialLinks = useLiveQuery(() => db.socialLinks.toArray()) || [];
+  const calendarEvents = useLiveQuery(() => db.calendarEvents.toArray()) || [];
 
   // --- JOB ACTIONS ---
-  const addJob = (
-    job: Omit<Job, "id" | "createdAt" | "updatedAt" | "interviews">,
-  ) => {
-    const newJob: Job = {
+  const addJob = async (job: Omit<Job, "id" | "createdAt" | "updatedAt" | "interviews">) => {
+    await db.jobs.add({
       ...job,
       id: crypto.randomUUID(),
       interviews: [],
       createdAt: new Date().toISOString(),
       updatedAt: new Date().toISOString(),
-    };
-    setJobs((prev) => [newJob, ...prev]);
+    } as Job);
   };
 
-  const updateJob = (id: string, updates: Partial<Job>) => {
-    setJobs((prev) =>
-      prev.map((j) =>
-        j.id === id
-          ? { ...j, ...updates, updatedAt: new Date().toISOString() }
-          : j,
-      ),
-    );
+  const updateJob = async (id: string, updates: Partial<Job>) => {
+    await db.jobs.update(id, { ...updates, updatedAt: new Date().toISOString() });
   };
 
-  const deleteJob = (id: string) => {
-    setJobs((prev) => prev.filter((j) => j.id !== id));
+  const deleteJob = async (id: string) => {
+    await db.jobs.delete(id);
   };
 
   // --- CONTACT ACTIONS ---
-  const addContact = (
-    contact: Omit<Contact, "id" | "createdAt" | "updatedAt">,
-  ) => {
-    const newContact: Contact = {
+  const addContact = async (contact: Omit<Contact, "id" | "createdAt" | "updatedAt">) => {
+    await db.contacts.add({
       ...contact,
       id: crypto.randomUUID(),
       createdAt: new Date().toISOString(),
       updatedAt: new Date().toISOString(),
-    };
-    setContacts((prev) => [newContact, ...prev]);
+    } as Contact);
   };
-  const updateContact = (id: string, updates: Partial<Contact>) => {
-    setContacts((prev) =>
-      prev.map((c) =>
-        c.id === id
-          ? { ...c, ...updates, updatedAt: new Date().toISOString() }
-          : c,
-      ),
-    );
+  
+  const updateContact = async (id: string, updates: Partial<Contact>) => {
+    await db.contacts.update(id, { ...updates, updatedAt: new Date().toISOString() });
   };
-  const deleteContact = (id: string) => {
-    setContacts((prev) => prev.filter((c) => c.id !== id));
+  
+  const deleteContact = async (id: string) => {
+    await db.contacts.delete(id);
   };
 
   // --- TEMPLATE ACTIONS ---
-  const addTemplate = (template: Omit<Template, "id" | "updatedAt">) => {
-    const newTemplate: Template = {
+  const addTemplate = async (template: Omit<Template, "id" | "updatedAt">) => {
+    await db.templates.add({
       ...template,
       id: crypto.randomUUID(),
       updatedAt: new Date().toISOString(),
-    };
-    setTemplates((prev) => [newTemplate, ...prev]);
+    } as Template);
   };
-  const updateTemplate = (id: string, updates: Partial<Template>) => {
-    setTemplates((prev) =>
-      prev.map((t) =>
-        t.id === id
-          ? { ...t, ...updates, updatedAt: new Date().toISOString() }
-          : t,
-      ),
-    );
+  
+  const updateTemplate = async (id: string, updates: Partial<Template>) => {
+    await db.templates.update(id, { ...updates, updatedAt: new Date().toISOString() });
   };
-  const deleteTemplate = (id: string) => {
-    setTemplates((prev) => prev.filter((t) => t.id !== id));
+  
+  const deleteTemplate = async (id: string) => {
+    await db.templates.delete(id);
   };
 
   // --- LINK ACTIONS ---
-  const addLink = (link: Omit<SocialLink, "id">) => {
-    setSocialLinks((prev) => [...prev, { ...link, id: crypto.randomUUID() }]);
+  const addLink = async (link: Omit<SocialLink, "id">) => {
+    await db.socialLinks.add({ ...link, id: crypto.randomUUID() });
   };
-  const updateLink = (id: string, updates: Partial<SocialLink>) => {
-    setSocialLinks((prev) =>
-      prev.map((l) => (l.id === id ? { ...l, ...updates } : l)),
-    );
+  
+  const updateLink = async (id: string, updates: Partial<SocialLink>) => {
+    await db.socialLinks.update(id, updates);
   };
-  const deleteLink = (id: string) => {
-    setSocialLinks((prev) => prev.filter((l) => l.id !== id));
+  
+  const deleteLink = async (id: string) => {
+    await db.socialLinks.delete(id);
   };
 
   // --- CALENDAR EVENT ACTIONS ---
-  const addEvent = (event: Omit<CalendarEvent, "id">) => {
-    const newEvent: CalendarEvent = { ...event, id: crypto.randomUUID() };
-    setCalendarEvents((prev) => [...prev, newEvent]);
+  const addEvent = async (event: Omit<CalendarEvent, "id">) => {
+    await db.calendarEvents.add({ ...event, id: crypto.randomUUID() });
   };
-  const updateEvent = (id: string, updates: Partial<CalendarEvent>) => {
-    setCalendarEvents((prev) =>
-      prev.map((e) => (e.id === id ? { ...e, ...updates } : e)),
-    );
+  
+  const updateEvent = async (id: string, updates: Partial<CalendarEvent>) => {
+    await db.calendarEvents.update(id, updates);
   };
-  const deleteEvent = (id: string) => {
-    setCalendarEvents((prev) => prev.filter((e) => e.id !== id));
+  
+  const deleteEvent = async (id: string) => {
+    await db.calendarEvents.delete(id);
   };
 
   return {
@@ -187,6 +161,7 @@ export function useTracker() {
     contacts,
     templates,
     socialLinks,
+    calendarEvents,
     isLoaded,
     addJob,
     updateJob,
@@ -200,7 +175,6 @@ export function useTracker() {
     addLink,
     updateLink,
     deleteLink,
-    calendarEvents,
     addEvent,
     updateEvent,
     deleteEvent,
