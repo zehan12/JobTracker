@@ -1,36 +1,59 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 💼 JobTracker
 
-## Getting Started
+A powerful, entirely client-side job application tracking system built with **Next.js**, **React 19**, and **Tailwind CSS**. JobTracker is designed for high performance, maximum privacy, and complete data ownership.
 
-First, run the development server:
+Unlike traditional trackers, JobTracker uses **IndexedDB (Dexie.js)** to store all of your data locally in your browser. There are no databases, no servers, and absolutely zero tracking. Your data is 100% yours.
+
+## ✨ Features
+
+- **📊 Kanban Board:** Organize job applications effortlessly by dragging them across stages (e.g., Applied, Interviewing, Offered, Rejected).
+- **📅 Interactive Calendar & Timeline:** Keep track of upcoming interviews, deadlines, and events in a powerful visual grid.
+- **🤝 Network Management:** Maintain a contact list for referrals, recruiters, and coffee chats.
+- **📚 Resources Library:** Store resume links, portfolio items, and interview preparation materials in one place.
+- **🌗 Dark Mode:** Full theme support powered by Next-Themes and Shadcn UI.
+- **💾 Local First & Portable:** 
+  - All data is securely stored in your browser's IndexedDB.
+  - No account or backend required.
+  - Seamlessly export your entire database to a `.json` file and import it on any other device.
+
+## 🛠️ Technology Stack
+
+- **Framework:** [Next.js](https://nextjs.org) (App Router)
+- **UI & Styling:** [Tailwind CSS v4](https://tailwindcss.com/) & [Shadcn UI](https://ui.shadcn.com/)
+- **Database:** [Dexie.js](https://dexie.org/) (IndexedDB Wrapper)
+- **Icons:** [Lucide React](https://lucide.dev/)
+
+## 🚀 Getting Started
+
+First, clone the repository and install the dependencies:
+
+```bash
+# Clone the repository
+git clone https://github.com/zehan12/JobTracker.git
+cd JobTracker
+
+# Install dependencies
+npm install
+```
+
+Start the development server:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) in your browser. The application will instantly initialize a local IndexedDB instance, and you can begin tracking applications immediately!
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 🔄 Migrating Data Across Devices
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Because JobTracker is serverless, your data lives strictly on your local machine. If you want to use the app on another computer or browser:
 
-## Learn More
+1. Click the **Data Management (Export/Import)** button in the application header.
+2. Select **Export Data** to download a `.json` backup of your database.
+3. Open JobTracker on your new device/browser, click **Import Data**, and select your file.
 
-To learn more about Next.js, take a look at the following resources:
+Your Kanban boards, calendar events, and contacts will instantly appear.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 📄 License
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+This project is open-source and available under the MIT License. Feel free to fork, modify, and customize it to land your dream job!
