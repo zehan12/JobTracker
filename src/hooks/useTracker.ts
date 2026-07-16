@@ -70,14 +70,18 @@ export function useTracker() {
 
   // Reactively query the database
   // Using reverse().sortBy('createdAt') for jobs if you want newest first
-  const jobs = useLiveQuery(() => db.jobs.reverse().sortBy('createdAt')) || [];
-  const contacts = useLiveQuery(() => db.contacts.reverse().sortBy('createdAt')) || [];
-  const templates = useLiveQuery(() => db.templates.reverse().sortBy('updatedAt')) || [];
+  const jobs = useLiveQuery(() => db.jobs.reverse().sortBy("createdAt")) || [];
+  const contacts =
+    useLiveQuery(() => db.contacts.reverse().sortBy("createdAt")) || [];
+  const templates =
+    useLiveQuery(() => db.templates.reverse().sortBy("updatedAt")) || [];
   const socialLinks = useLiveQuery(() => db.socialLinks.toArray()) || [];
   const calendarEvents = useLiveQuery(() => db.calendarEvents.toArray()) || [];
 
   // --- JOB ACTIONS ---
-  const addJob = async (job: Omit<Job, "id" | "createdAt" | "updatedAt" | "interviews">) => {
+  const addJob = async (
+    job: Omit<Job, "id" | "createdAt" | "updatedAt" | "interviews">,
+  ) => {
     await db.jobs.add({
       ...job,
       id: crypto.randomUUID(),
@@ -88,7 +92,10 @@ export function useTracker() {
   };
 
   const updateJob = async (id: string, updates: Partial<Job>) => {
-    await db.jobs.update(id, { ...updates, updatedAt: new Date().toISOString() });
+    await db.jobs.update(id, {
+      ...updates,
+      updatedAt: new Date().toISOString(),
+    });
   };
 
   const deleteJob = async (id: string) => {
@@ -96,7 +103,9 @@ export function useTracker() {
   };
 
   // --- CONTACT ACTIONS ---
-  const addContact = async (contact: Omit<Contact, "id" | "createdAt" | "updatedAt">) => {
+  const addContact = async (
+    contact: Omit<Contact, "id" | "createdAt" | "updatedAt">,
+  ) => {
     await db.contacts.add({
       ...contact,
       id: crypto.randomUUID(),
@@ -104,11 +113,14 @@ export function useTracker() {
       updatedAt: new Date().toISOString(),
     } as Contact);
   };
-  
+
   const updateContact = async (id: string, updates: Partial<Contact>) => {
-    await db.contacts.update(id, { ...updates, updatedAt: new Date().toISOString() });
+    await db.contacts.update(id, {
+      ...updates,
+      updatedAt: new Date().toISOString(),
+    });
   };
-  
+
   const deleteContact = async (id: string) => {
     await db.contacts.delete(id);
   };
@@ -121,11 +133,14 @@ export function useTracker() {
       updatedAt: new Date().toISOString(),
     } as Template);
   };
-  
+
   const updateTemplate = async (id: string, updates: Partial<Template>) => {
-    await db.templates.update(id, { ...updates, updatedAt: new Date().toISOString() });
+    await db.templates.update(id, {
+      ...updates,
+      updatedAt: new Date().toISOString(),
+    });
   };
-  
+
   const deleteTemplate = async (id: string) => {
     await db.templates.delete(id);
   };
@@ -134,11 +149,11 @@ export function useTracker() {
   const addLink = async (link: Omit<SocialLink, "id">) => {
     await db.socialLinks.add({ ...link, id: crypto.randomUUID() });
   };
-  
+
   const updateLink = async (id: string, updates: Partial<SocialLink>) => {
     await db.socialLinks.update(id, updates);
   };
-  
+
   const deleteLink = async (id: string) => {
     await db.socialLinks.delete(id);
   };
@@ -147,11 +162,11 @@ export function useTracker() {
   const addEvent = async (event: Omit<CalendarEvent, "id">) => {
     await db.calendarEvents.add({ ...event, id: crypto.randomUUID() });
   };
-  
+
   const updateEvent = async (id: string, updates: Partial<CalendarEvent>) => {
     await db.calendarEvents.update(id, updates);
   };
-  
+
   const deleteEvent = async (id: string) => {
     await db.calendarEvents.delete(id);
   };
