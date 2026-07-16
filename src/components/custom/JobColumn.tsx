@@ -37,12 +37,12 @@ export function JobColumn({
   return (
     <div
       ref={setNodeRef}
-      className="flex flex-col h-full min-w-[320px] w-full max-w-sm bg-zinc-100/50 dark:bg-zinc-900/30 border-none rounded-xl p-3 transition-colors data-[over=true]:bg-zinc-200/50 dark:data-[over=true]:bg-zinc-800/50"
+      className="flex flex-col h-full min-w-[320px] w-full max-w-sm bg-secondary border border-border rounded-xl p-3 transition-colors data-[over=true]:bg-accent"
     >
       <div className="flex justify-between items-center mb-3 px-1">
-        <h2 className="text-xs font-bold uppercase tracking-wider text-zinc-500 flex items-center gap-2">
+        <h2 className="text-xs font-bold uppercase tracking-wider text-muted-foreground flex items-center gap-2">
           {title}
-          <span className="text-[10px] px-1.5 py-0.5 rounded-full bg-zinc-200 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-400 font-medium ml-1">
+          <span className="text-[10px] px-1.5 py-0.5 rounded-full bg-background border border-border text-muted-foreground font-medium ml-1">
             {jobs.length}
           </span>
         </h2>
@@ -50,7 +50,7 @@ export function JobColumn({
           variant="ghost"
           size="icon"
           onClick={() => onAdd(status)}
-          className="text-zinc-400 hover:text-zinc-100 hover:bg-zinc-800 h-8 w-8"
+          className="text-muted-foreground hover:text-foreground hover:bg-background border border-transparent hover:border-border h-8 w-8"
         >
           <PlusIcon className="w-5 h-5" />
         </Button>
@@ -62,7 +62,7 @@ export function JobColumn({
             <Button
               variant="ghost"
               onClick={() => onAdd(status)}
-              className="text-zinc-400 hover:text-zinc-600 dark:hover:text-zinc-300 text-sm"
+              className="text-muted-foreground hover:text-foreground text-sm"
             >
               + Add Job
             </Button>

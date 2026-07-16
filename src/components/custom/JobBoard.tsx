@@ -95,7 +95,7 @@ export function JobBoard() {
   };
 
   if (!isLoaded)
-    return <div className="p-10 text-zinc-400">Loading your board...</div>;
+    return <div className="p-10 text-muted-foreground">Loading your board...</div>;
 
   return (
     <DndContext

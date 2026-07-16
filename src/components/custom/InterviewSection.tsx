@@ -48,9 +48,9 @@ export function InterviewSection({
   };
 
   return (
-    <div className="space-y-4 pt-4 border-t border-zinc-800">
+    <div className="space-y-4 pt-4 border-t border-border">
       <div className="flex justify-between items-center">
-        <h3 className="text-zinc-100 font-medium flex items-center gap-2">
+        <h3 className="text-muted-foreground font-medium flex items-center gap-2">
           <span className="w-2 h-2 rounded-full bg-purple-500"></span>
           Interview Rounds
         </h3>
@@ -69,16 +69,16 @@ export function InterviewSection({
         {interviews.map((round, index) => (
           <div
             key={round.id}
-            className="bg-zinc-800/50 border border-zinc-700/50 rounded-lg p-3"
+            className="bg-secondary border border-border/50 rounded-lg p-3"
           >
             <div className="flex justify-between items-center mb-2">
-              <span className="text-sm font-semibold text-zinc-300">
+              <span className="text-sm font-semibold text-muted-foreground">
                 Round {index + 1}
               </span>
               <div className="flex items-center gap-2">
                 <Input
                   type="date"
-                  className="bg-zinc-900 border-zinc-700 text-zinc-400 h-8 w-auto text-xs"
+                  className="bg-secondary border-border text-muted-foreground h-8 w-auto text-xs"
                   value={round.date.split("T")[0]}
                   onChange={(e) =>
                     updateRound(round.id, { date: e.target.value })
@@ -89,7 +89,7 @@ export function InterviewSection({
                   variant="ghost"
                   size="icon"
                   onClick={() => deleteRound(round.id)}
-                  className="h-8 w-8 text-zinc-500 hover:text-red-400 hover:bg-red-900/20"
+                  className="h-8 w-8 text-muted-foreground hover:text-red-400 hover:bg-red-900/20"
                 >
                   <TrashIcon className="w-4 h-4" />
                 </Button>
@@ -99,7 +99,7 @@ export function InterviewSection({
             <div className="space-y-3">
               <div>
                 <Textarea
-                  className="bg-zinc-900 border-zinc-700 text-zinc-300 text-sm focus-visible:ring-purple-500"
+                  className="bg-secondary border-border text-muted-foreground text-sm focus-visible:ring-purple-500"
                   placeholder="General notes about the interview..."
                   rows={2}
                   value={round.notes}
@@ -111,7 +111,7 @@ export function InterviewSection({
 
               <div className="space-y-2">
                 <div className="flex justify-between items-center">
-                  <label className="text-xs text-zinc-500 font-medium uppercase tracking-wider">
+                  <label className="text-xs text-muted-foreground font-medium uppercase tracking-wider">
                     Questions Asked
                   </label>
                   <Button
@@ -119,7 +119,7 @@ export function InterviewSection({
                     variant="ghost"
                     size="sm"
                     onClick={() => addQuestion(round.id)}
-                    className="h-6 text-xs text-zinc-500 hover:text-zinc-300"
+                    className="h-6 text-xs text-muted-foreground hover:text-muted-foreground"
                   >
                     <PlusIcon className="w-3 h-3 mr-1" /> Add
                   </Button>
@@ -127,9 +127,9 @@ export function InterviewSection({
 
                 {round.questions.map((q, qIdx) => (
                   <div key={qIdx} className="flex gap-2 items-center">
-                    <span className="text-zinc-500 text-sm">•</span>
+                    <span className="text-muted-foreground text-sm">•</span>
                     <Input
-                      className="bg-transparent border-b border-transparent border-b-zinc-700 focus:border-purple-500 rounded-none h-8 px-0 text-zinc-300 text-sm shadow-none focus-visible:ring-0"
+                      className="bg-transparent border-b border-transparent border-b-zinc-700 focus:border-purple-500 rounded-none h-8 px-0 text-muted-foreground text-sm shadow-none focus-visible:ring-0"
                       placeholder="What question did they ask?"
                       value={q}
                       onChange={(e) =>
@@ -143,8 +143,8 @@ export function InterviewSection({
           </div>
         ))}
         {interviews.length === 0 && (
-          <div className="text-center py-4 bg-zinc-900/30 rounded border border-dashed border-zinc-800">
-            <p className="text-zinc-600 text-sm italic">
+          <div className="text-center py-4 bg-secondary rounded border border-dashed border-border">
+            <p className="text-muted-foreground text-sm italic">
               No interviews tracked yet.
             </p>
           </div>

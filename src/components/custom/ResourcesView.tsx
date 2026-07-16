@@ -78,7 +78,7 @@ export function ResourcesView() {
       {/* --- TEMPLATES SECTION --- */}
       <div className="lg:col-span-2 space-y-6">
         <div className="flex justify-between items-center">
-          <h2 className="text-2xl font-bold text-zinc-900 dark:text-zinc-100">
+          <h2 className="text-2xl font-bold text-foreground">
             Templates
           </h2>
           <Button
@@ -94,39 +94,39 @@ export function ResourcesView() {
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {templates.length === 0 ? (
-            <div className="col-span-full border-2 border-dashed border-zinc-300 dark:border-zinc-800 rounded-xl p-10 text-center text-zinc-500">
+            <div className="col-span-full border-2 border-dashed border-border rounded-xl p-10 text-center text-muted-foreground">
               No templates yet. Create one for cover letters or cold emails.
             </div>
           ) : (
             templates.map((template) => (
               <Card
                 key={template.id}
-                className="bg-white dark:bg-zinc-900 border-zinc-200 dark:border-zinc-800 flex flex-col shadow-sm"
+                className="bg-card border-border flex flex-col shadow-sm"
               >
                 <CardHeader className="pb-2">
                   <div className="flex justify-between items-start">
-                    <CardTitle className="text-lg text-zinc-900 dark:text-zinc-200">
+                    <CardTitle className="text-lg text-muted-foreground">
                       {template.title}
                     </CardTitle>
                     <Badge
                       variant="outline"
-                      className="text-zinc-500 dark:text-zinc-400 border-zinc-200 dark:border-zinc-700"
+                      className="text-muted-foreground border-border"
                     >
                       {template.type}
                     </Badge>
                   </div>
                 </CardHeader>
                 <CardContent className="flex-1">
-                  <p className="text-zinc-600 dark:text-zinc-500 text-sm line-clamp-3 font-mono bg-zinc-50 dark:bg-zinc-950/50 p-2 rounded">
+                  <p className="text-muted-foreground text-sm line-clamp-3 font-mono bg-secondary p-2 rounded">
                     {template.content}
                   </p>
                 </CardContent>
-                <CardFooter className="pt-2 border-t border-zinc-100 dark:border-zinc-800/50 flex justify-end gap-2">
+                <CardFooter className="pt-2 border-t border-border flex justify-end gap-2">
                   <Button
                     variant="ghost"
                     size="sm"
                     onClick={() => handleCopy(template.content)}
-                    className="text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100"
+                    className="text-muted-foreground hover:text-muted-foreground dark:hover:text-muted-foreground"
                   >
                     <CopySvg className="w-4 h-4 mr-1" /> Copy
                   </Button>
@@ -137,7 +137,7 @@ export function ResourcesView() {
                       setEditingTemplate(template);
                       setIsTemplateModalOpen(true);
                     }}
-                    className="text-zinc-500 dark:text-zinc-400 hover:text-blue-500 dark:hover:text-blue-400"
+                    className="text-muted-foreground hover:text-blue-500 dark:hover:text-blue-400"
                   >
                     <EditIcon className="w-4 h-4" />
                   </Button>
@@ -145,7 +145,7 @@ export function ResourcesView() {
                     variant="ghost"
                     size="sm"
                     onClick={() => deleteTemplate(template.id)}
-                    className="text-zinc-500 dark:text-zinc-400 hover:text-red-500 dark:hover:text-red-400"
+                    className="text-muted-foreground hover:text-red-500 dark:hover:text-red-400"
                   >
                     <TrashIcon className="w-4 h-4" />
                   </Button>
@@ -159,7 +159,7 @@ export function ResourcesView() {
       {/* --- SOCIAL LINKS SECTION --- */}
       <div className="space-y-6">
         <div className="flex justify-between items-center">
-          <h2 className="text-xl font-bold text-zinc-900 dark:text-zinc-100">
+          <h2 className="text-xl font-bold text-foreground">
             Social Links
           </h2>
           <Button
@@ -169,7 +169,7 @@ export function ResourcesView() {
               setEditingLink(null);
               setIsLinkModalOpen(true);
             }}
-            className="bg-zinc-200 dark:bg-zinc-800 text-zinc-900 dark:text-zinc-100 hover:bg-zinc-300 dark:hover:bg-zinc-700"
+            className="bg-secondary text-foreground hover:bg-secondary dark:hover:bg-secondary"
           >
             <PlusIcon className="w-4 h-4 mr-1" /> Add
           </Button>
@@ -177,17 +177,17 @@ export function ResourcesView() {
 
         <div className="space-y-3">
           {socialLinks.length === 0 ? (
-            <div className="border border-zinc-200 dark:border-zinc-800 rounded-xl p-6 text-center text-zinc-500 text-sm">
+            <div className="border border-border rounded-xl p-6 text-center text-muted-foreground text-sm">
               Add your LinkedIn, Portfolio, etc.
             </div>
           ) : (
             socialLinks.map((link) => (
               <div
                 key={link.id}
-                className="flex items-center justify-between p-3 bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-lg group hover:border-zinc-300 dark:hover:border-zinc-700 transition-colors shadow-sm"
+                className="flex items-center justify-between p-3 bg-card border border-border rounded-lg group hover:border-border dark:hover:border-border transition-colors shadow-sm"
               >
                 <div className="overflow-hidden">
-                  <h4 className="font-medium text-zinc-900 dark:text-zinc-200">
+                  <h4 className="font-medium text-muted-foreground">
                     {link.platform}
                   </h4>
                   <a
@@ -204,7 +204,7 @@ export function ResourcesView() {
                     variant="ghost"
                     size="icon"
                     onClick={() => handleCopy(link.url)}
-                    className="h-7 w-7 text-zinc-400 hover:text-zinc-600 dark:hover:text-zinc-300"
+                    className="h-7 w-7 text-muted-foreground hover:text-muted-foreground dark:hover:text-muted-foreground"
                   >
                     <CopySvg className="w-3.5 h-3.5" />
                   </Button>
@@ -215,7 +215,7 @@ export function ResourcesView() {
                       setEditingLink(link);
                       setIsLinkModalOpen(true);
                     }}
-                    className="h-7 w-7 text-zinc-400 hover:text-zinc-600 dark:hover:text-zinc-300"
+                    className="h-7 w-7 text-muted-foreground hover:text-muted-foreground dark:hover:text-muted-foreground"
                   >
                     <EditIcon className="w-3.5 h-3.5" />
                   </Button>
@@ -223,7 +223,7 @@ export function ResourcesView() {
                     variant="ghost"
                     size="icon"
                     onClick={() => deleteLink(link.id)}
-                    className="h-7 w-7 text-zinc-400 hover:text-red-500 dark:hover:text-red-400"
+                    className="h-7 w-7 text-muted-foreground hover:text-red-500 dark:hover:text-red-400"
                   >
                     <TrashIcon className="w-3.5 h-3.5" />
                   </Button>

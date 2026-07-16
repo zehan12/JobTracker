@@ -33,7 +33,13 @@ export function DataManagement() {
 
   return (
     <div className="flex items-center gap-1">
-      <Button variant="ghost" size="icon" onClick={handleExport} title="Export Data" className="h-8 w-8">
+      <Button
+        variant="ghost"
+        size="icon"
+        onClick={handleExport}
+        title="Export Data"
+        className="h-8 w-8"
+      >
         <DownloadIcon className="w-4 h-4" />
       </Button>
       <input
@@ -43,7 +49,13 @@ export function DataManagement() {
         onChange={handleImport}
         className="hidden"
       />
-      <Button variant="ghost" size="icon" onClick={() => fileInputRef.current?.click()} title="Import Data" className="h-8 w-8">
+      <Button
+        variant="ghost"
+        size="icon"
+        onClick={() => fileInputRef.current?.click()}
+        title="Import Data"
+        className="h-8 w-8"
+      >
         <UploadIcon className="w-4 h-4" />
       </Button>
     </div>

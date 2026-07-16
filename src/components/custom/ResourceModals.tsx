@@ -53,38 +53,38 @@ export function TemplateModal({
 
   return (
     <Dialog open={isOpen} onOpenChange={(open) => !open && onClose()}>
-      <DialogContent className="sm:max-w-2xl bg-white dark:bg-zinc-900 border-zinc-200 dark:border-zinc-800 text-zinc-900 dark:text-zinc-100">
+      <DialogContent className="sm:max-w-2xl bg-card border-border text-foreground">
         <DialogHeader>
-          <DialogTitle className="text-zinc-900 dark:text-zinc-100">
+          <DialogTitle className="text-foreground">
             {initialData ? "Edit Template" : "New Template"}
           </DialogTitle>
         </DialogHeader>
         <form onSubmit={handleSubmit} className="space-y-4">
           <div className="grid grid-cols-2 gap-4">
             <div className="space-y-2">
-              <Label className="text-zinc-500 dark:text-zinc-400">Title</Label>
+              <Label className="text-muted-foreground">Title</Label>
               <Input
                 required
                 value={formData.title}
                 onChange={(e) =>
                   setFormData({ ...formData, title: e.target.value })
                 }
-                className="bg-white dark:bg-zinc-800 border-zinc-200 dark:border-zinc-700 text-zinc-900 dark:text-zinc-100"
+                className="bg-card border-border text-foreground"
                 placeholder="e.g. Frontend Cover Letter"
               />
             </div>
             <div className="space-y-2">
-              <Label className="text-zinc-500 dark:text-zinc-400">Type</Label>
+              <Label className="text-muted-foreground">Type</Label>
               <Select
                 value={formData.type}
                 onValueChange={(val) =>
                   setFormData({ ...formData, type: val as any })
                 }
               >
-                <SelectTrigger className="bg-white dark:bg-zinc-800 border-zinc-200 dark:border-zinc-700 text-zinc-900 dark:text-zinc-100">
+                <SelectTrigger className="bg-card border-border text-foreground">
                   <SelectValue placeholder="Select Type" />
                 </SelectTrigger>
-                <SelectContent className="bg-white dark:bg-zinc-900 border-zinc-200 dark:border-zinc-800">
+                <SelectContent className="bg-card border-border">
                   <SelectItem value="Cover Letter">Cover Letter</SelectItem>
                   <SelectItem value="Email">Email</SelectItem>
                   <SelectItem value="Message">Message</SelectItem>
@@ -95,23 +95,23 @@ export function TemplateModal({
           </div>
 
           <div className="space-y-2">
-            <Label className="text-zinc-500 dark:text-zinc-400">Content</Label>
+            <Label className="text-muted-foreground">Content</Label>
             <Textarea
               required
               value={formData.content}
               onChange={(e) =>
                 setFormData({ ...formData, content: e.target.value })
               }
-              className="bg-white dark:bg-zinc-800 border-zinc-200 dark:border-zinc-700 text-zinc-900 dark:text-zinc-100 min-h-[200px]"
+              className="bg-card border-border text-foreground min-h-[200px]"
               placeholder="Dear Hiring Manager..."
             />
           </div>
-          <div className="flex justify-end gap-2 pt-2 border-t border-zinc-200 dark:border-zinc-800">
+          <div className="flex justify-end gap-2 pt-2 border-t border-border">
             <Button
               type="button"
               variant="ghost"
               onClick={onClose}
-              className="text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100 hover:bg-zinc-100 dark:hover:bg-zinc-800"
+              className="text-muted-foreground hover:text-muted-foreground dark:hover:text-muted-foreground hover:bg-secondary dark:hover:bg-secondary"
             >
               Cancel
             </Button>
@@ -161,15 +161,15 @@ export function LinkModal({
 
   return (
     <Dialog open={isOpen} onOpenChange={(open) => !open && onClose()}>
-      <DialogContent className="sm:max-w-md bg-white dark:bg-zinc-900 border-zinc-200 dark:border-zinc-800 text-zinc-900 dark:text-zinc-100">
+      <DialogContent className="sm:max-w-md bg-card border-border text-foreground">
         <DialogHeader>
-          <DialogTitle className="text-zinc-900 dark:text-zinc-100">
+          <DialogTitle className="text-foreground">
             {initialData ? "Edit Link" : "New Link"}
           </DialogTitle>
         </DialogHeader>
         <form onSubmit={handleSubmit} className="space-y-4">
           <div className="space-y-2">
-            <Label className="text-zinc-500 dark:text-zinc-400">
+            <Label className="text-muted-foreground">
               Platform / Title
             </Label>
             <Input
@@ -178,28 +178,28 @@ export function LinkModal({
               onChange={(e) =>
                 setFormData({ ...formData, platform: e.target.value })
               }
-              className="bg-white dark:bg-zinc-800 border-zinc-200 dark:border-zinc-700 text-zinc-900 dark:text-zinc-100"
+              className="bg-card border-border text-foreground"
               placeholder="e.g. LinkedIn"
             />
           </div>
           <div className="space-y-2">
-            <Label className="text-zinc-500 dark:text-zinc-400">URL</Label>
+            <Label className="text-muted-foreground">URL</Label>
             <Input
               required
               value={formData.url}
               onChange={(e) =>
                 setFormData({ ...formData, url: e.target.value })
               }
-              className="bg-white dark:bg-zinc-800 border-zinc-200 dark:border-zinc-700 text-zinc-900 dark:text-zinc-100"
+              className="bg-card border-border text-foreground"
               placeholder="https://..."
             />
           </div>
-          <div className="flex justify-end gap-2 pt-2 border-t border-zinc-200 dark:border-zinc-800">
+          <div className="flex justify-end gap-2 pt-2 border-t border-border">
             <Button
               type="button"
               variant="ghost"
               onClick={onClose}
-              className="text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100 hover:bg-zinc-100 dark:hover:bg-zinc-800"
+              className="text-muted-foreground hover:text-muted-foreground dark:hover:text-muted-foreground hover:bg-secondary dark:hover:bg-secondary"
             >
               Cancel
             </Button>

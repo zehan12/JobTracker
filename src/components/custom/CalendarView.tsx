@@ -32,9 +32,9 @@ export function CalendarView() {
   return (
     <div className="flex flex-col md:flex-row gap-8 p-4 md:p-6 max-w-7xl mx-auto h-[calc(100vh-140px)]">
       <div className="flex-1 max-w-[400px]">
-        <Card className="bg-white dark:bg-zinc-900 border-zinc-200 dark:border-zinc-800 shadow-sm">
+        <Card className="bg-card border-border shadow-sm">
           <CardHeader>
-            <CardTitle className="text-zinc-900 dark:text-zinc-100">
+            <CardTitle className="text-foreground">
               Application Calendar
             </CardTitle>
           </CardHeader>
@@ -43,7 +43,7 @@ export function CalendarView() {
               mode="single"
               selected={date}
               onSelect={setDate}
-              className="rounded-md border border-zinc-200 dark:border-zinc-800 text-zinc-900 dark:text-zinc-100"
+              className="rounded-md border border-border text-foreground"
               modifiers={{
                 hasJob: activityDays,
               }}
@@ -55,7 +55,7 @@ export function CalendarView() {
           </CardContent>
         </Card>
 
-        <div className="mt-4 p-4 bg-zinc-50 dark:bg-zinc-900/50 rounded-lg text-sm text-zinc-500 dark:text-zinc-400 border border-zinc-200 dark:border-zinc-800">
+        <div className="mt-4 p-4 bg-secondary rounded-lg text-sm text-muted-foreground border border-border">
           <p className="flex items-center gap-2">
             <span className="w-2 h-2 rounded-full bg-blue-500"></span>
             Days with applications applied
@@ -63,12 +63,12 @@ export function CalendarView() {
         </div>
       </div>
 
-      <div className="flex-1 bg-white dark:bg-zinc-900/20 border border-zinc-200 dark:border-zinc-800/50 rounded-xl p-6 overflow-hidden flex flex-col shadow-sm">
-        <h3 className="text-xl font-semibold text-zinc-900 dark:text-zinc-100 mb-4 flex items-center gap-2">
+      <div className="flex-1 bg-card border border-border rounded-xl p-6 overflow-hidden flex flex-col shadow-sm">
+        <h3 className="text-xl font-semibold text-foreground mb-4 flex items-center gap-2">
           Activity for {date ? format(date, "MMMM do, yyyy") : "Selected Date"}
           <Badge
             variant="secondary"
-            className="bg-zinc-100 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300"
+            className="bg-secondary text-muted-foreground"
           >
             {selectedJobs.length}
           </Badge>
@@ -76,27 +76,27 @@ export function CalendarView() {
 
         <div className="space-y-3 overflow-y-auto pr-2 custom-scrollbar">
           {selectedJobs.length === 0 ? (
-            <div className="flex flex-col items-center justify-center h-full text-zinc-500 py-10 opacity-70">
+            <div className="flex flex-col items-center justify-center h-full text-muted-foreground py-10 opacity-70">
               <p>No applications found for this date.</p>
             </div>
           ) : (
             selectedJobs.map((job) => (
               <div
                 key={job.id}
-                className="p-4 bg-zinc-50 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-lg hover:border-zinc-300 dark:hover:border-zinc-700 transition-colors"
+                className="p-4 bg-secondary border border-border rounded-lg hover:border-border dark:hover:border-border transition-colors"
               >
                 <div className="flex justify-between items-start">
                   <div>
-                    <h4 className="font-semibold text-zinc-900 dark:text-zinc-200">
+                    <h4 className="font-semibold text-muted-foreground">
                       {job.role}
                     </h4>
-                    <p className="text-sm text-zinc-500 dark:text-zinc-400">
+                    <p className="text-sm text-muted-foreground">
                       {job.company}
                     </p>
                   </div>
                   <Badge
                     variant="outline"
-                    className="border-zinc-200 dark:border-zinc-700 text-zinc-500 dark:text-zinc-400"
+                    className="border-border text-muted-foreground"
                   >
                     {job.status}
                   </Badge>

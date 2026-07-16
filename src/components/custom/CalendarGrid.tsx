@@ -127,13 +127,13 @@ export function CalendarGrid({
   };
 
   return (
-    <div className="flex flex-col h-full bg-white dark:bg-zinc-950">
+    <div className="flex flex-col h-full bg-card">
       {/* Header */}
-      <div className="grid grid-cols-7 border-b border-zinc-200 dark:border-zinc-800">
+      <div className="grid grid-cols-7 border-b border-border">
         {["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"].map((day) => (
           <div
             key={day}
-            className="py-2 text-center text-[10px] font-semibold text-zinc-500 dark:text-zinc-400"
+            className="py-2 text-center text-[10px] font-semibold text-muted-foreground"
           >
             {day}
           </div>
@@ -148,7 +148,7 @@ export function CalendarGrid({
           return (
             <div
               key={weekIndex}
-              className="flex-1 relative min-h-[100px] border-b border-zinc-200 dark:border-zinc-800 last:border-0"
+              className="flex-1 relative min-h-[100px] border-b border-border last:border-0"
             >
               {/* Background Grid */}
               <div className="absolute inset-0 grid grid-cols-7 h-full">
@@ -157,10 +157,10 @@ export function CalendarGrid({
                     key={day.toISOString()}
                     onClick={() => onDateClick(day)}
                     className={cn(
-                      "h-full border-r border-zinc-200 dark:border-zinc-800 p-1 cursor-pointer transition-colors",
+                      "h-full border-r border-border p-1 cursor-pointer transition-colors",
                       dayIndex === 6 && "border-r-0",
                       !isSameMonth(day, currentDate) &&
-                        "bg-zinc-50/30 dark:bg-zinc-900/30",
+                        "bg-secondary",
                     )}
                   >
                     <div className="flex justify-center mt-1">
@@ -169,7 +169,7 @@ export function CalendarGrid({
                           "text-xs font-medium w-6 h-6 flex items-center justify-center rounded-full",
                           isSameDay(day, new Date())
                             ? "bg-blue-600 text-white"
-                            : "text-zinc-700 dark:text-zinc-300 hover:bg-zinc-100 dark:hover:bg-zinc-800",
+                            : "text-muted-foreground hover:bg-secondary dark:hover:bg-secondary",
                         )}
                       >
                         {format(day, "d")}
@@ -199,7 +199,7 @@ export function CalendarGrid({
                           !isTimed &&
                             "h-5 rounded-[4px] shadow-sm border opacity-90 hover:opacity-100", // Bar style
                           isTimed &&
-                            "h-5 hover:bg-zinc-100 dark:hover:bg-zinc-800 rounded-sm font-medium text-zinc-900 dark:text-zinc-100", // Text style
+                            "h-5 hover:bg-secondary dark:hover:bg-secondary rounded-sm font-medium text-foreground", // Text style
                           !isTimed && getTypeColor(event.type),
                         )}
                         style={{
@@ -220,12 +220,12 @@ export function CalendarGrid({
                                 event.type === "Other" && "bg-gray-500",
                               )}
                             />
-                            <span className="mr-1.5 text-zinc-500 font-normal">
+                            <span className="mr-1.5 text-muted-foreground font-normal">
                               {format(new Date(event.startDate), "h:mma")
                                 .toLowerCase()
                                 .replace(":00", "")}
                             </span>
-                            <span className="font-medium text-zinc-700 dark:text-zinc-200">
+                            <span className="font-medium text-muted-foreground">
                               {event.title}
                             </span>
                           </>

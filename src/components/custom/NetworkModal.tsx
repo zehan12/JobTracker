@@ -66,22 +66,22 @@ export function NetworkModal({
 
   return (
     <Dialog open={isOpen} onOpenChange={(open) => !open && onClose()}>
-      <DialogContent className="sm:max-w-md bg-white dark:bg-zinc-900 border-zinc-200 dark:border-zinc-800 text-zinc-900 dark:text-zinc-100">
+      <DialogContent className="sm:max-w-md bg-card border-border text-foreground">
         <DialogHeader>
-          <DialogTitle className="text-xl font-semibold text-zinc-900 dark:text-zinc-100">
+          <DialogTitle className="text-xl font-semibold text-foreground">
             {initialData ? "Edit Contact" : "Add Contact"}
           </DialogTitle>
         </DialogHeader>
 
         <form onSubmit={handleSubmit} className="space-y-4 mt-4">
           <div className="space-y-2">
-            <Label htmlFor="name" className="text-zinc-500 dark:text-zinc-400">
+            <Label htmlFor="name" className="text-muted-foreground">
               Name *
             </Label>
             <Input
               id="name"
               required
-              className="bg-white dark:bg-zinc-800 border-zinc-200 dark:border-zinc-700 text-zinc-900 dark:text-zinc-100 focus-visible:ring-blue-500"
+              className="bg-card border-border text-foreground focus-visible:ring-blue-500"
               value={formData.name || ""}
               onChange={(e) =>
                 setFormData({ ...formData, name: e.target.value })
@@ -94,13 +94,13 @@ export function NetworkModal({
             <div className="space-y-2">
               <Label
                 htmlFor="company"
-                className="text-zinc-500 dark:text-zinc-400"
+                className="text-muted-foreground"
               >
                 Company
               </Label>
               <Input
                 id="company"
-                className="bg-white dark:bg-zinc-800 border-zinc-200 dark:border-zinc-700 text-zinc-900 dark:text-zinc-100 focus-visible:ring-blue-500"
+                className="bg-card border-border text-foreground focus-visible:ring-blue-500"
                 value={formData.company || ""}
                 onChange={(e) =>
                   setFormData({ ...formData, company: e.target.value })
@@ -111,13 +111,13 @@ export function NetworkModal({
             <div className="space-y-2">
               <Label
                 htmlFor="role"
-                className="text-zinc-500 dark:text-zinc-400"
+                className="text-muted-foreground"
               >
                 Role
               </Label>
               <Input
                 id="role"
-                className="bg-white dark:bg-zinc-800 border-zinc-200 dark:border-zinc-700 text-zinc-900 dark:text-zinc-100 focus-visible:ring-blue-500"
+                className="bg-card border-border text-foreground focus-visible:ring-blue-500"
                 value={formData.role || ""}
                 onChange={(e) =>
                   setFormData({ ...formData, role: e.target.value })
@@ -128,17 +128,17 @@ export function NetworkModal({
           </div>
 
           <div className="space-y-2">
-            <Label className="text-zinc-500 dark:text-zinc-400">Status</Label>
+            <Label className="text-muted-foreground">Status</Label>
             <Select
               value={formData.status}
               onValueChange={(val) =>
                 setFormData({ ...formData, status: val as ContactStatus })
               }
             >
-              <SelectTrigger className="bg-white dark:bg-zinc-800 border-zinc-200 dark:border-zinc-700 text-zinc-900 dark:text-zinc-100">
+              <SelectTrigger className="bg-card border-border text-foreground">
                 <SelectValue placeholder="Select status" />
               </SelectTrigger>
-              <SelectContent className="bg-white dark:bg-zinc-900 border-zinc-200 dark:border-zinc-800">
+              <SelectContent className="bg-card border-border">
                 <SelectItem value="To Contact">To Contact</SelectItem>
                 <SelectItem value="Contacted">Contacted</SelectItem>
                 <SelectItem value="Replied">Replied</SelectItem>
@@ -149,13 +149,13 @@ export function NetworkModal({
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="email" className="text-zinc-500 dark:text-zinc-400">
+            <Label htmlFor="email" className="text-muted-foreground">
               Email
             </Label>
             <Input
               id="email"
               type="email"
-              className="bg-white dark:bg-zinc-800 border-zinc-200 dark:border-zinc-700 text-zinc-900 dark:text-zinc-100 focus-visible:ring-blue-500"
+              className="bg-card border-border text-foreground focus-visible:ring-blue-500"
               value={formData.email || ""}
               onChange={(e) =>
                 setFormData({ ...formData, email: e.target.value })
@@ -167,13 +167,13 @@ export function NetworkModal({
           <div className="space-y-2">
             <Label
               htmlFor="linkedin"
-              className="text-zinc-500 dark:text-zinc-400"
+              className="text-muted-foreground"
             >
               LinkedIn URL
             </Label>
             <Input
               id="linkedin"
-              className="bg-white dark:bg-zinc-800 border-zinc-200 dark:border-zinc-700 text-zinc-900 dark:text-zinc-100 focus-visible:ring-blue-500"
+              className="bg-card border-border text-foreground focus-visible:ring-blue-500"
               value={formData.linkedin || ""}
               onChange={(e) =>
                 setFormData({ ...formData, linkedin: e.target.value })
@@ -183,12 +183,12 @@ export function NetworkModal({
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="notes" className="text-zinc-500 dark:text-zinc-400">
+            <Label htmlFor="notes" className="text-muted-foreground">
               Notes
             </Label>
             <Textarea
               id="notes"
-              className="bg-white dark:bg-zinc-800 border-zinc-200 dark:border-zinc-700 text-zinc-900 dark:text-zinc-100 min-h-[80px] focus-visible:ring-blue-500"
+              className="bg-card border-border text-foreground min-h-[80px] focus-visible:ring-blue-500"
               value={formData.notes || ""}
               onChange={(e) =>
                 setFormData({ ...formData, notes: e.target.value })
@@ -197,12 +197,12 @@ export function NetworkModal({
             />
           </div>
 
-          <div className="flex justify-end pt-4 border-t border-zinc-200 dark:border-zinc-800 gap-3">
+          <div className="flex justify-end pt-4 border-t border-border gap-3">
             <Button
               type="button"
               variant="ghost"
               onClick={onClose}
-              className="text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100 hover:bg-zinc-100 dark:hover:bg-zinc-800"
+              className="text-muted-foreground hover:text-muted-foreground dark:hover:text-muted-foreground hover:bg-secondary dark:hover:bg-secondary"
             >
               Cancel
             </Button>

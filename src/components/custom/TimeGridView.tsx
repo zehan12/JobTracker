@@ -54,19 +54,19 @@ export function TimeGridView({
   };
 
   return (
-    <div className="flex h-full overflow-hidden flex-col bg-white dark:bg-zinc-950 border-t border-zinc-200 dark:border-zinc-800">
+    <div className="flex h-full overflow-hidden flex-col bg-card border-t border-border">
       {/* Header */}
-      <div className="flex border-b border-zinc-200 dark:border-zinc-800 shrink-0">
-        <div className="w-16 border-r border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-950" />
+      <div className="flex border-b border-border shrink-0">
+        <div className="w-16 border-r border-border bg-card" />
         {daysToShow.map((day) => (
           <div
             key={day.toISOString()}
-            className="flex-1 py-4 text-center border-r border-zinc-200 dark:border-zinc-800 last:border-0 bg-white dark:bg-zinc-950 relative"
+            className="flex-1 py-4 text-center border-r border-border last:border-0 bg-card relative"
           >
             <div
               className={cn(
                 "text-[11px] font-medium uppercase mb-1 tracking-wider",
-                isSameDay(day, new Date()) ? "text-blue-600" : "text-zinc-500",
+                isSameDay(day, new Date()) ? "text-blue-600" : "text-muted-foreground",
               )}
             >
               {format(day, "EEE")}
@@ -76,7 +76,7 @@ export function TimeGridView({
                 "text-2xl font-normal w-10 h-10 flex items-center justify-center rounded-full mx-auto transition-colors",
                 isSameDay(day, new Date())
                   ? "bg-blue-600 text-white"
-                  : "text-zinc-700 dark:text-zinc-300 hover:bg-zinc-100 dark:hover:bg-zinc-800",
+                  : "text-muted-foreground hover:bg-secondary dark:hover:bg-secondary",
               )}
             >
               {format(day, "d")}
@@ -86,14 +86,14 @@ export function TimeGridView({
       </div>
 
       {/* Scrollable Grid */}
-      <div className="flex-1 overflow-y-auto relative custom-scrollbar bg-white dark:bg-zinc-950">
+      <div className="flex-1 overflow-y-auto relative custom-scrollbar bg-card">
         <div className="flex min-h-[1440px]">
           {/* Time Axis */}
-          <div className="w-16 flex-shrink-0 border-r border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-950 select-none">
+          <div className="w-16 flex-shrink-0 border-r border-border bg-card select-none">
             {hours.map((hour) => (
               <div key={hour} className="h-[60px] relative pointer-events-none">
                 {hour !== 0 && (
-                  <span className="absolute -top-3 right-3 text-xs text-zinc-500 dark:text-zinc-400 font-medium text-[11px]">
+                  <span className="absolute -top-3 right-3 text-xs text-muted-foreground font-medium text-[11px]">
                     {format(new Date().setHours(hour, 0), "ha")}
                   </span>
                 )}
@@ -102,17 +102,17 @@ export function TimeGridView({
           </div>
 
           {/* Days Columns */}
-          <div className="flex-1 flex bg-white dark:bg-zinc-950">
+          <div className="flex-1 flex bg-card">
             {daysToShow.map((day, dayIndex) => (
               <div
                 key={day.toISOString()}
-                className="flex-1 border-r border-zinc-200 dark:border-zinc-800 last:border-0 relative min-w-[100px]"
+                className="flex-1 border-r border-border last:border-0 relative min-w-[100px]"
               >
                 {/* Horizontal Hour Lines */}
                 {hours.map((hour) => (
                   <div
                     key={hour}
-                    className="h-[60px] border-b border-zinc-100 dark:border-zinc-800/50 w-full absolute pointer-events-none"
+                    className="h-[60px] border-b border-border w-full absolute pointer-events-none"
                     style={{ top: `${hour * 60}px` }}
                   />
                 ))}

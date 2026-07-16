@@ -124,7 +124,7 @@ export function ScheduleView() {
     <div className="flex flex-col h-full gap-4">
       <div className="flex items-center justify-between shrink-0">
         <div className="flex items-center gap-4">
-          <div className="flex items-center gap-1 bg-zinc-100 dark:bg-zinc-800 rounded-lg p-1">
+          <div className="flex items-center gap-1 bg-secondary rounded-lg p-1">
             <Button
               variant="ghost"
               size="sm"
@@ -133,7 +133,7 @@ export function ScheduleView() {
             >
               Today
             </Button>
-            <div className="w-px h-4 bg-zinc-300 dark:bg-zinc-700 mx-1" />
+            <div className="w-px h-4 bg-secondary mx-1" />
             <Button
               variant="ghost"
               size="icon"
@@ -151,7 +151,7 @@ export function ScheduleView() {
               <ChevronRight className="h-4 w-4" />
             </Button>
           </div>
-          <h2 className="text-xl font-bold text-zinc-900 dark:text-zinc-100 min-w-[200px]">
+          <h2 className="text-xl font-bold text-foreground min-w-[200px]">
             {getHeaderLabel()}
           </h2>
         </div>
@@ -180,7 +180,7 @@ export function ScheduleView() {
         </div>
       </div>
 
-      <div className="flex-1 overflow-hidden min-h-0 bg-white dark:bg-black border border-zinc-200 dark:border-zinc-800 rounded-xl">
+      <div className="flex-1 overflow-hidden min-h-0 bg-white dark:bg-black border border-border rounded-xl">
         {view === "month" ? (
           <CalendarGrid
             currentDate={currentDate}
